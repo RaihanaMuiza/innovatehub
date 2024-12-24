@@ -13,6 +13,6 @@
 
 <script>
 export default {
-  name: "Products-view",
+  name: "Product-view",
 };
 </script>

@@ -1,20 +1,21 @@
 <template>
   <div class="container-fluid">
     <Navbar @menuSelected="changeView" />
-    <Content :currentView="currentView" />
+    <!-- <Content :currentView="currentView" /> -->
   </div>
 </template>
 
 <script>
 import Navbar from "@/components/Navbar.vue";
-import Content from "@/components/Content.vue";
+// import Content from "@/components/Content.vue";
 // import Products from "@/views/Products.vue";
 
 export default {
   name: "App",
   components: {
     Navbar,
-    Content,
+    // Content,
+    // Products
   },
   data() {
     return {

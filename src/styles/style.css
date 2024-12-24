@@ -1,0 +1,262 @@
+/* Sidebar Styling */
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    height: calc(100vh - 20px); /* Full height with a small margin */
+    margin: 10px;
+    border-radius: 15px;
+    background-color: #f8f9fa; /* Light grey */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .logo {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    border-radius: 20%;
+  }
+  
+  .company-name {
+    font-weight: bold;
+    font-size: 1.2rem;
+    flex-grow: 1;
+  }
+  
+  .user-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .menu {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .menu-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    justify-content: flex-start; /* Align all content to the left */
+    gap: 10px;/* Add space between elements */
+  }
+  
+  .menu-icon {
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+    border-radius: 5%;
+  }
+
+  .menu-text {
+    flex-grow: 1; /* Allow the text to take the remaining horizontal space */
+    text-align: left; /* Explicitly align text to the left */
+    margin-left: 10px; /* Optional: Add space between the logo and text */
+}
+  
+  .badge {
+    background-color: #f1f1f1; /* Light grey background for badge */
+    color: #000;
+    padding: 5px 10px;
+    border-radius: 10px;
+    font-size: 0.8rem;
+  }
+
+  /* Menu Icon Container (for small devices) */
+.menu-icon-container {
+    display: none; /* Hidden by default */
+    justify-content: flex-end;
+    padding: 10px;
+}
+
+@media (max-width: 868px) {
+    /* For smaller screens */
+    .menu-icon-container {
+        display: flex;
+    }
+    .sidebar {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 60%;
+        height: 100%;
+        z-index: 1000;
+        background-color: #f8f9fa;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+}
+
+/* Divider Styling */
+.divider {
+    border: none;
+    border-top: 1px solid #ddd; /* Same color as navbar border */
+    margin: 5px 0;
+}
+
+/* Create Team Row */
+.create-team .menu-text {
+    color: #aaa; /* Light grey text */
+    font-style: italic;
+}
+
+.menu-group {
+    border: 1px solid #ddd; /* Same color as navbar border */
+    border-radius: 10px; /* Rounded corners */
+    padding: 10px;
+    margin-top: 10px;
+}
+
+/* Folders Section */
+/* Folders Section */
+.folders-section {
+    margin-top: 15px;
+}
+
+.folders-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.folders-title .menu-text {
+    color: #aaa; /* Light grey */
+    font-weight: bold;
+}
+
+.folders-title .add-icon {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #007bff; /* Primary color for the + icon */
+    cursor: pointer;
+}
+
+.folder-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 0;
+}
+
+.folder-item .menu-text {
+    flex-grow: 1; /* Push caret icon to the right */
+    text-align: left;
+}
+
+.folder-item .caret-icon {
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+/* Sub-Items */
+.sub-items {
+    display: none; /* Initially hidden */
+    margin-left: 25px; /* Indent for sub-items */
+    list-style: none;
+    border-left: 1px solid #ddd; /* Vertical line */
+    padding-left: 10px; /* Add margin after vertical line */
+}
+
+.sub-item {
+    padding: 5px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.add-new {
+    color: #007bff; /* Highlight Add New */
+    cursor: pointer;
+}
+
+/* Bottom Section */
+.bottom-section {
+    margin-top: auto; /* Push the section to the bottom */
+    padding-top: 15px;
+    border-top: 1px solid #ddd; /* Separator at the top */
+}
+
+.bottom-section .menu-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 0;
+}
+
+.bottom-section .menu-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.bottom-section .menu-text {
+    flex-grow: 1;
+    text-align: left;
+    color: #333; /* Default text color */
+}
+
+.bottom-section .badge {
+    background-color: #f1f1f1; /* Light grey background for badge */
+    color: #000; /* Dark text */
+    padding: 2px 6px;
+    font-size: 0.75rem;
+    border-radius: 5px;
+}
+
+.bottom-section .trial-info .menu-text {
+    color: #ff5722; 
+    font-weight: bold;
+}
+
+.bottom-section .btn-outline-primary {
+    padding: 2px 8px;
+    font-size: 0.75rem;
+    border-radius: 15px;
+}
+
+.add_billing{
+    background-color: #464748; 
+    cursor: pointer;
+    color: white;
+}
+
+.products-section {
+    flex-grow: 1; /* Makes it take up all available space next to the navbar */
+    background-color: #fff; /* Your desired background color */
+    border-radius: 15px; /* Optional: Matches the navbar */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional */
+    padding: 20px; /* Space inside the content section */
+    margin: 10px;
+    overflow-y: auto; /* Scroll content if it exceeds the height */
+    min-height: calc(100vh - 20px); /* Ensure it fills the remaining screen space */
+    width: calc(100vw - 20vw);
+}
+
+.sub-items {
+    margin-left: 25px;
+    list-style: none;
+    border-left: 1px solid #ddd; /* Vertical line */
+    padding-left: 10px;
+  }
+  
+  .sub-item {
+    padding: 5px 0;
+  }
+  
+  .add-new {
+    color: #007bff; /* Highlight Add New */
+    cursor: pointer;
+  }
+  
+  
+  
