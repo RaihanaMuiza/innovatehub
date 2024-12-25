@@ -1,5 +1,13 @@
-<template>
-    <div class="sidebar">
+<template>  
+        <div>
+      <!-- Hamburger Menu -->
+    <div class="menu-icon-container">
+      <button id="menu-toggle" class="btn btn-light" @click="toggleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+
+    <div v-show="isNavbarVisible" class="sidebar">
       <!-- Header Section -->
       <div class="header">
         <img src="@/assets/logo.jpg" alt="Logo" class="logo" />
@@ -95,12 +103,14 @@
         </div>
       </div>
     </div>
+  </div>
   </template>
   <script>
   export default {
     name: "Nav-bar",
     data() {
       return {
+        isNavbarVisible: true,
         trialDays: 7, // Dynamic trial days
         folders: [
           {
@@ -130,6 +140,9 @@
       addSubItem(folder) {
         folder.subItems.push("New Sub-Item");
       },
+      toggleNavbar() {
+      this.isNavbarVisible = !this.isNavbarVisible;
+    },
     },
   };
   </script>

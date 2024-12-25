@@ -2,7 +2,7 @@
 .sidebar {
     display: flex;
     flex-direction: column;
-    width: 20%;
+    /* width:  0%; */
     height: calc(100vh - 20px); /* Full height with a small margin */
     margin: 10px;
     border-radius: 15px;
@@ -80,7 +80,6 @@
 }
 
 @media (max-width: 868px) {
-    /* For smaller screens */
     .menu-icon-container {
         display: flex;
     }
@@ -95,7 +94,7 @@
         background-color: #f8f9fa;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
-}
+} 
 
 /* Divider Styling */
 .divider {
@@ -257,6 +256,8 @@
     color: #007bff; /* Highlight Add New */
     cursor: pointer;
   }
+  
+
   
   
   
