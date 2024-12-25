@@ -3,23 +3,45 @@
     <!-- Page Header -->
     <div class="products-header">
       <h2>Products</h2>
-      <Search @search="filterProducts" />
+      <div class="header-tools">
+        <Search @search="filterProducts" />
+        <button class="icon-button">
+          <img src="@/assets/message.png" alt="Message Icon" />
+        </button>
+        <button class="icon-button">
+          <img src="@/assets/setting.png" alt="Settings Icon" />
+        </button>
+      </div>
     </div>
-
+    <hr class="divider" />
+    <!-- Toolbar Row -->
+    <div class="products-toolbar">
+      <button class="toolbar-button">All brands</button>
+      <button class="toolbar-button">Desk</button>
+      <button class="toolbar-button">Tags</button>
+      <button class="toolbar-button">Sort</button>
+      <button class="toolbar-button">Filter</button>
+    </div>
+    <hr class="divider" />
     <!-- Products Table -->
     <table class="products-table">
       <thead>
         <tr>
+          <th></th>
           <th>Brand</th>
           <th>Description</th>
           <th>Members</th>
           <th>Categories</th>
           <th>Tags</th>
           <th>Next Meeting</th>
+          <th>+</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="product in filteredProducts" :key="product.id">
+          <td>
+            <input type="checkbox" />
+          </td>
           <td>{{ product.brand }}</td>
           <td>{{ product.description }}</td>
           <td>
@@ -52,11 +74,15 @@
             </span>
           </td>
           <td>{{ product.nextMeeting }}</td>
+          <td>
+            <button class="add-button">+</button>
+          </td>
         </tr>
       </tbody>
     </table>
   </div>
 </template>
+
 <script>
 import Search from "@/components/Search.vue";
 
@@ -92,7 +118,6 @@ export default {
           tags: ["#OnlineShopping", "#Digital"],
           nextMeeting: "Tomorrow",
         },
-        // Add more product rows here
       ],
       filteredProducts: [],
     };
@@ -117,6 +142,7 @@ export default {
   },
 };
 </script>
+
 <style scoped>
 .products-section {
   background-color: #fff;
@@ -124,15 +150,47 @@ export default {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 20px;
   margin: 10px;
-  overflow-y: auto;
-  height: calc(100vh - 40px); /* Adjust height as per layout */
+  overflow-y: hidden;
+  height: calc(100vh - 40px);
 }
 
 .products-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+}
+
+.header-tools {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.icon-button {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f1f1f1;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: -15px;
+}
+
+.products-toolbar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.toolbar-button {
+  padding: 5px 10px;
+  background-color: #f1f1f1;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .products-table {
@@ -145,6 +203,14 @@ export default {
 .products-table td {
   padding: 10px;
   border-bottom: 1px solid #ddd;
+}
+
+.add-button {
+  background-color: #f1f1f1;
+  border: none;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .members {
@@ -169,4 +235,3 @@ export default {
   margin: 2px;
 }
 </style>
-

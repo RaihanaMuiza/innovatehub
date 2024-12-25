@@ -16,7 +16,7 @@ export default {
 };
 </script>
 
-<style>
+<!-- <style>
 .content-section {
   flex-grow: 1;
   background-color: #fff;
@@ -24,7 +24,7 @@ export default {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 20px;
   margin: 10px;
-  overflow-y: auto;
+  overflow-y: none;
   min-height: 100vh;
 }
-</style>
+</style> -->
