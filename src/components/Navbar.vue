@@ -56,11 +56,12 @@
   
         <div v-for="folder in folders" :key="folder.name">
           <!-- Folder Item -->
-          <div class="folder-item" @click="toggleFolder(folder)">
+          <div class="folder-item">
             <img src="@/assets/folder.png" alt="Folder Icon" class="menu-icon" />
             <span class="menu-text">{{ folder.name }}</span>
             <span
               v-if="folder.subItems && folder.subItems.length > 0"
+              @click.stop ="toggleFolder(folder)"
               class="caret-icon"
             >
               {{ folder.expanded ? "▲" : "▼" }}
@@ -73,7 +74,9 @@
               <div class="sub-item">{{ subItem }}</div>
             </li>
             <li class="add-new" @click="addSubItem(folder)">
-              + Add new sub
+              <!-- <img src="@/assets/add.png" alt="Create Team" class="menu-icon" /> -->
+
+             + Add new sub
             </li>
           </ul>
           <hr class="divider" />
@@ -135,14 +138,17 @@
     },
     methods: {
       toggleFolder(folder) {
+        console.log("folder", folder);
+        console.log("e", folder.expanded);
         folder.expanded = !folder.expanded;
+        console.log("e1", folder.expanded);
       },
       addSubItem(folder) {
         folder.subItems.push("New Sub-Item");
       },
       toggleNavbar() {
       this.isNavbarVisible = !this.isNavbarVisible;
-    },
+      },
     },
   };
   </script>

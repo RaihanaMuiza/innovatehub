@@ -159,7 +159,6 @@
 
 /* Sub-Items */
 .sub-items {
-    display: none; /* Initially hidden */
     margin-left: 25px; /* Indent for sub-items */
     list-style: none;
     border-left: 1px solid #ddd; /* Vertical line */
@@ -253,7 +252,7 @@
   }
   
   .add-new {
-    color: #007bff; /* Highlight Add New */
+    color: #8b8e92; /* Highlight Add New */
     cursor: pointer;
   }
   
