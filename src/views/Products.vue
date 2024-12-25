@@ -33,8 +33,10 @@
     <table class="products-table">
       <thead>
         <tr>
-          <th></th>
-          <th>Brand</th>
+          <th> <input type="checkbox" /></th>
+          <th class="brand-column">Brand
+            <button class="add-icon">+</button>
+          </th>
           <th>Description</th>
           <th>Members</th>
           <th>Categories</th>
@@ -48,14 +50,15 @@
           <td>
             <input type="checkbox" />
           </td>
-          <td>{{ product.brand }}</td>
-          <td>{{ product.description }}</td>
+          <td class="brand-column">{{ product.brand }}</td>
+          <td><span class="description-text" :title="product.description">
+            {{ truncateText(product.description, 30) }}</span></td>
           <td>
             <div class="members">
               <img
                 v-for="member in product.members"
                 :key="member.name"
-                :src="member.avatar"
+                src="member.avatar"
                 :alt="member.name"
                 class="member-avatar"
               />
@@ -121,7 +124,7 @@ export default {
         {
           id: 3,
           brand: "MailChimp",
-          description: "Develop a mobile application.",
+          description: "Develop a mobile application to track the mails for your cutomers",
           members: [
             { name: "Alice", avatar: "path/to/avatar3.png" },
             { name: "Wane", avatar: "path/to/avatar3.png" },
@@ -134,22 +137,13 @@ export default {
           nextMeeting: "Tomorrow",
         },
         {
-          id: 4,
-          brand: "MailChimp",
-          description: "Develop a mobile application.",
-          members: [{ name: "Alice", avatar: "path/to/avatar3.png" }],
-          categories: ["SAAS", "Mobile"],
-          tags: ["#TechInnovation", "#CloudComputing"],
-          nextMeeting: "Tomorrow",
-        },
-        {
           id: 5,
           brand: "PayPal",
           description: "This program could include financial services.",
           members: [{ name: "Mane Fraser", avatar: "path/to/avatar3.png" }],
           categories: ["Marketplace"],
           tags: ["#TechInnovation", "#CloudComputing"],
-          nextMeeting: "Tomorrow",
+          nextMeeting: "In 6 hours",
         },
         {
           id: 6,
@@ -162,7 +156,7 @@ export default {
           ],
           categories: ["SAAS", "Mobile"],
           tags: ["#TechInnovation", "#CloudComputing"],
-          nextMeeting: "Tomorrow",
+          nextMeeting: "No Contact",
         },
         {
           id: 7,
@@ -176,7 +170,7 @@ export default {
           ],
           categories: ["Finance", "Automation"],
           tags: ["#SmartFinance", "#Workflow"],
-          nextMeeting: "Tomorrow",
+          nextMeeting: "In 1 hour",
         },
         {
           id: 8,
@@ -185,7 +179,7 @@ export default {
           members: [{ name: "Alice", avatar: "path/to/avatar3.png" }],
           categories: ["SAAS", "Mobile"],
           tags: ["#TechInnovation", "#CloudComputing"],
-          nextMeeting: "Tomorrow",
+          nextMeeting: "In 30 minutes",
         },
         {
           id: 9,
@@ -198,7 +192,7 @@ export default {
           ],
           categories: ["SAAS", "Mobile"],
           tags: ["#TechInnovation", "#CloudComputing"],
-          nextMeeting: "Tomorrow",
+          nextMeeting: "next Month",
         },
         {
           id: 10,
@@ -212,7 +206,7 @@ export default {
           ],
           categories: ["Publishing", "B2B"],
           tags: ["#B2CMarketing", "#Retail"],
-          nextMeeting: "Tomorrow",
+          nextMeeting: "No contact",
         },
         {
           id: 11,
@@ -224,7 +218,7 @@ export default {
           ],
           categories: ["Publishing", "B2B"],
           tags: ["#B2CMarketing", "#Retail"],
-          nextMeeting: "Tomorrow",
+          nextMeeting: "Next Month",
         },
       ],
       filteredProducts: [],
@@ -244,6 +238,12 @@ export default {
             tag.toLowerCase().includes(this.searchQuery)
           )
       );
+    },
+    truncateText(text, maxLength) {
+      if (text.length > maxLength) {
+        return text.slice(0, maxLength) + "...";
+      }
+      return text;
     },
   },
   mounted() {
@@ -306,12 +306,20 @@ export default {
   width: 100%;
   border-collapse: collapse;
   text-align: left;
+  margin-top: 15px;
+  border-radius: 5px;
+  border: 1px solid #f3f2f2;
 }
 
 .products-table th,
 .products-table td {
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
+  padding: 5px;
+  border: 0.5px solid #f3f2f2;
+}
+
+.brand-column {
+  width: 17.5%; 
+  position: relative;
 }
 
 .add-button {
@@ -320,6 +328,18 @@ export default {
   padding: 5px;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.add-icon {
+  float: right; /* Align the + icon to the right */
+  background: none;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+}
+
+.add-icon:hover {
+  color: #0056b3;
 }
 
 .members {
@@ -340,7 +360,7 @@ export default {
   color: #333;
   padding: 5px 10px;
   border-radius: 10px;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   margin: 2px;
 }
 
@@ -361,7 +381,7 @@ export default {
   padding: 5px 10px;
   background-color: #f1f1f1;
   border: 1px solid #ddd;
-  border-radius: 15px;
+  border-radius: 7.5px;
   cursor: pointer;
   font-size: 0.9rem;
   font-weight: bold;
@@ -375,10 +395,10 @@ export default {
 
 .toolbar-badge {
   padding: 5px 15px;
-  background-color: #007bff;
-  color: white;
+  background-color: #f1f1f1;
+  color: black;
   border: none;
-  border-radius: 15px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 0.9rem;
   font-weight: bold;
@@ -386,5 +406,44 @@ export default {
 
 .toolbar-badge:hover {
   background-color: #0056b3;
+}
+
+/* Description Column */
+.description-column {
+  width: 30%; /* Fixed width for description */
+  white-space: nowrap; /* Prevent text wrapping */
+  overflow: hidden;
+  text-overflow: ellipsis; /* Display ellipsis for overflow text */
+}
+
+.description-text {
+  display: inline-block;
+  max-width: 100%; /* Ensure truncation works */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer; /* Indicate hover for tooltip */
+}
+
+/* .description-text:hover {
+  text-decoration: underline;
+} */
+
+.description-text::after {
+  content: attr(title); /* Tooltip text from title attribute */
+  position: absolute;
+  background: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  padding: 5px;
+  border-radius: 5px;
+  white-space: normal; /* Allow wrapping in tooltip */
+  display: none;
+}
+
+.description-text:hover::after {
+  display: block; /* Show tooltip on hover */
+  top: 100%;
+  left: 0;
+  z-index: 10;
 }
 </style>

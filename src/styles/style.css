@@ -255,6 +255,10 @@
     color: #8b8e92; /* Highlight Add New */
     cursor: pointer;
   }
+
+  body{
+    font-size: 0.9em;
+  }
   
 
   
