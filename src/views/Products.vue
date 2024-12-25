@@ -33,8 +33,9 @@
     <table class="products-table">
       <thead>
         <tr>
-          <th> <input type="checkbox" /></th>
-          <th class="brand-column">Brand
+          <th><input type="checkbox" /></th>
+          <th class="brand-column">
+            Brand
             <button class="add-icon">+</button>
           </th>
           <th>Description</th>
@@ -51,8 +52,11 @@
             <input type="checkbox" />
           </td>
           <td class="brand-column">{{ product.brand }}</td>
-          <td><span class="description-text" :title="product.description">
-            {{ truncateText(product.description, 30) }}</span></td>
+          <td>
+            <span class="description-text" :title="product.description">
+              {{ truncateText(product.description, 30) }}</span
+            >
+          </td>
           <td>
             <div class="members">
               <img
@@ -78,7 +82,14 @@
               {{ tag }}
             </span>
           </td>
-          <td>{{ product.nextMeeting }}</td>
+          <td>
+          <span
+            class="meeting-badge"
+            :class="getMeetingBadgeClass(product.nextMeeting)"
+          >
+            {{ product.nextMeeting }}
+          </span>
+          </td>
           <td>
             <!-- <button class="add-button">+</button> -->
           </td>
@@ -124,7 +135,8 @@ export default {
         {
           id: 3,
           brand: "MailChimp",
-          description: "Develop a mobile application to track the mails for your cutomers",
+          description:
+            "Develop a mobile application to track the mails for your cutomers",
           members: [
             { name: "Alice", avatar: "path/to/avatar3.png" },
             { name: "Wane", avatar: "path/to/avatar3.png" },
@@ -245,6 +257,26 @@ export default {
       }
       return text;
     },
+    getMeetingBadgeClass(nextMeeting) {
+      // const today = new Date();
+      const meetingText = nextMeeting.toLowerCase();
+
+      if (
+        meetingText.includes("today") ||
+        meetingText.includes("minutes") ||
+        meetingText.includes("hours")
+      ) {
+        return "badge-green";
+      } else if (meetingText.includes("tomorrow")) {
+        return "badge-blue";
+      } else if (meetingText.includes("no contact")) {
+        return "badge-red";
+      } else if (meetingText.includes("next month")) {
+        return "badge-grey";
+      } else {
+        return "badge-grey"; // Default to grey if unknown
+      }
+    },
   },
   mounted() {
     this.filteredProducts = this.products; // Initialize with all products
@@ -317,8 +349,14 @@ export default {
   border: 0.5px solid #f3f2f2;
 }
 
+.productd-table td{
+  text-align: center; /* Center horizontally */
+  vertical-align: middle; /* Center vertically */
+  padding: 10px;
+}
+
 .brand-column {
-  width: 17.5%; 
+  width: 17.5%;
   position: relative;
 }
 
@@ -445,5 +483,40 @@ export default {
   top: 100%;
   left: 0;
   z-index: 10;
+}
+/* Badge Styling */
+.meeting-badge {
+  display: inline-block;
+  padding: 5px 10px;
+  text-align: center;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  margin-left: 4px;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+/* Green Badge (Today) */
+.badge-green {
+  background-color: #d4edda; /* Light green */
+  color: #155724; /* Darker green */
+}
+
+/* Blue Badge (Tomorrow) */
+.badge-blue {
+  background-color: #cce5ff; /* Light blue */
+  color: #004085; /* Darker blue */
+}
+
+/* Red Badge (No Contact) */
+.badge-red {
+  background-color: #f8d7da; /* Light red */
+  color: #721c24; /* Darker red */
+}
+
+/* Grey Badge (Next Month / Others) */
+.badge-grey {
+  background-color: #e2e3e5; /* Light grey */
+  color: #6c757d; /* Darker grey */
 }
 </style>
