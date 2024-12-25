@@ -16,11 +16,17 @@
     <hr class="divider" />
     <!-- Toolbar Row -->
     <div class="products-toolbar">
-      <button class="toolbar-button">All brands</button>
-      <button class="toolbar-button">Desk</button>
-      <button class="toolbar-button">Tags</button>
-      <button class="toolbar-button">Sort</button>
-      <button class="toolbar-button">Filter</button>
+      <div class="toolbar-left">
+        <button class="toolbar-button">All brands</button>
+        <button class="toolbar-button">Desk</button>
+        <button class="toolbar-button">Tags</button>
+        <button class="toolbar-button">Sort</button>
+        <button class="toolbar-button">Filter</button>
+      </div>
+      <div class="toolbar-right">
+        <button class="toolbar-badge">Meeting</button>
+        <button class="toolbar-badge">Import/Export</button>
+      </div>
     </div>
     <hr class="divider" />
     <!-- Products Table -->
@@ -65,17 +71,13 @@
             </span>
           </td>
           <td>
-            <span
-              v-for="tag in product.tags"
-              :key="tag"
-              class="tag-badge"
-            >
+            <span v-for="tag in product.tags" :key="tag" class="tag-badge">
               {{ tag }}
             </span>
           </td>
           <td>{{ product.nextMeeting }}</td>
           <td>
-            <button class="add-button">+</button>
+            <!-- <button class="add-button">+</button> -->
           </td>
         </tr>
       </tbody>
@@ -100,7 +102,7 @@ export default {
           brand: "Wix",
           description: "Develop a personalized fitness program.",
           members: [
-            { name: "John Doe", avatar: "path/to/avatar1.png" },
+            { name: "John Doe", avatar: "@/assets/user.jpg" },
             { name: "Jane Smith", avatar: "path/to/avatar2.png" },
           ],
           categories: ["Automation"],
@@ -111,11 +113,117 @@ export default {
           id: 2,
           brand: "Shopify",
           description: "Introduce a cloud-based retail solution.",
-          members: [
-            { name: "Alice", avatar: "path/to/avatar3.png" },
-          ],
+          members: [{ name: "Alice", avatar: "path/to/avatar3.png" }],
           categories: ["E-commerce", "B2B"],
           tags: ["#OnlineShopping", "#Digital"],
+          nextMeeting: "Tomorrow",
+        },
+        {
+          id: 3,
+          brand: "MailChimp",
+          description: "Develop a mobile application.",
+          members: [
+            { name: "Alice", avatar: "path/to/avatar3.png" },
+            { name: "Wane", avatar: "path/to/avatar3.png" },
+            { name: "July", avatar: "path/to/avatar3.png" },
+            { name: "Roselwe", avatar: "path/to/avatar3.png" },
+            { name: "Patty", avatar: "path/to/avatar3.png" },
+          ],
+          categories: ["SAAS", "Mobile"],
+          tags: ["#TechInnovation", "#CloudComputing"],
+          nextMeeting: "Tomorrow",
+        },
+        {
+          id: 4,
+          brand: "MailChimp",
+          description: "Develop a mobile application.",
+          members: [{ name: "Alice", avatar: "path/to/avatar3.png" }],
+          categories: ["SAAS", "Mobile"],
+          tags: ["#TechInnovation", "#CloudComputing"],
+          nextMeeting: "Tomorrow",
+        },
+        {
+          id: 5,
+          brand: "PayPal",
+          description: "This program could include financial services.",
+          members: [{ name: "Mane Fraser", avatar: "path/to/avatar3.png" }],
+          categories: ["Marketplace"],
+          tags: ["#TechInnovation", "#CloudComputing"],
+          nextMeeting: "Tomorrow",
+        },
+        {
+          id: 6,
+          brand: "Disney",
+          description: "Introduce a B2B Solution",
+          members: [
+            { name: "Alice", avatar: "path/to/avatar3.png" },
+            { name: "Maryn", avatar: "path/to/avatar3.png" },
+            { name: "Tress", avatar: "path/to/avatar3.png" },
+          ],
+          categories: ["SAAS", "Mobile"],
+          tags: ["#TechInnovation", "#CloudComputing"],
+          nextMeeting: "Tomorrow",
+        },
+        {
+          id: 7,
+          brand: "Intercom",
+          description: "Implement an AI driven solution",
+          members: [
+            { name: "Alice", avatar: "path/to/avatar3.png" },
+            { name: "Alice", avatar: "path/to/avatar3.png" },
+            { name: "Alice", avatar: "path/to/avatar3.png" },
+            { name: "Alice", avatar: "path/to/avatar3.png" },
+          ],
+          categories: ["Finance", "Automation"],
+          tags: ["#SmartFinance", "#Workflow"],
+          nextMeeting: "Tomorrow",
+        },
+        {
+          id: 8,
+          brand: "Google",
+          description: "Offer a comprehensive solution",
+          members: [{ name: "Alice", avatar: "path/to/avatar3.png" }],
+          categories: ["SAAS", "Mobile"],
+          tags: ["#TechInnovation", "#CloudComputing"],
+          nextMeeting: "Tomorrow",
+        },
+        {
+          id: 9,
+          brand: "Evernote",
+          description: "The cloud include smart list",
+          members: [
+            { name: "Alice", avatar: "path/to/avatar3.png" },
+            { name: "Raene", avatar: "path/to/avatar3.png" },
+            { name: "Oss", avatar: "path/to/avatar3.png" },
+          ],
+          categories: ["SAAS", "Mobile"],
+          tags: ["#TechInnovation", "#CloudComputing"],
+          nextMeeting: "Tomorrow",
+        },
+        {
+          id: 10,
+          brand: "Microsoft",
+          description: "Launch advisory service",
+          members: [
+            { name: "Alice", avatar: "path/to/avatar3.png" },
+            { name: "Wayne", avatar: "path/to/avatar3.png" },
+            { name: "Irend", avatar: "path/to/avatar3.png" },
+            { name: "Ugeane", avatar: "path/to/avatar3.png" },
+          ],
+          categories: ["Publishing", "B2B"],
+          tags: ["#B2CMarketing", "#Retail"],
+          nextMeeting: "Tomorrow",
+        },
+        {
+          id: 11,
+          brand: "Invision",
+          description: "The tool would analyze the data",
+          members: [
+            { name: "Alice", avatar: "path/to/avatar3.png" },
+            { name: "Alice", avatar: "path/to/avatar3.png" },
+          ],
+          categories: ["Publishing", "B2B"],
+          tags: ["#B2CMarketing", "#Retail"],
           nextMeeting: "Tomorrow",
         },
       ],
@@ -125,15 +233,16 @@ export default {
   methods: {
     filterProducts(query) {
       this.searchQuery = query.toLowerCase();
-      this.filteredProducts = this.products.filter((product) =>
-        product.brand.toLowerCase().includes(this.searchQuery) ||
-        product.description.toLowerCase().includes(this.searchQuery) ||
-        product.categories.some((cat) =>
-          cat.toLowerCase().includes(this.searchQuery)
-        ) ||
-        product.tags.some((tag) =>
-          tag.toLowerCase().includes(this.searchQuery)
-        )
+      this.filteredProducts = this.products.filter(
+        (product) =>
+          product.brand.toLowerCase().includes(this.searchQuery) ||
+          product.description.toLowerCase().includes(this.searchQuery) ||
+          product.categories.some((cat) =>
+            cat.toLowerCase().includes(this.searchQuery)
+          ) ||
+          product.tags.some((tag) =>
+            tag.toLowerCase().includes(this.searchQuery)
+          )
       );
     },
   },
@@ -233,5 +342,49 @@ export default {
   border-radius: 10px;
   font-size: 0.9rem;
   margin: 2px;
+}
+
+.products-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+/* Left buttons */
+.toolbar-left {
+  display: flex;
+  gap: 10px;
+}
+
+.toolbar-button {
+  padding: 5px 10px;
+  background-color: #f1f1f1;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+/* Right badges */
+.toolbar-right {
+  display: flex;
+  gap: 10px;
+}
+
+.toolbar-badge {
+  padding: 5px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.toolbar-badge:hover {
+  background-color: #0056b3;
 }
 </style>
