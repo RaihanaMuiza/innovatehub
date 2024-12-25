@@ -56,7 +56,7 @@
   
         <div v-for="folder in folders" :key="folder.name">
           <!-- Folder Item -->
-          <div class="folder-item">
+          <div class="folder-item" @click="$emit('menuSelected',  folder.name)">
             <img src="@/assets/folder.png" alt="Folder Icon" class="menu-icon" />
             <span class="menu-text">{{ folder.name }}</span>
             <span
@@ -117,7 +117,7 @@
         trialDays: 7, // Dynamic trial days
         folders: [
           {
-            name: "Products",
+            name: "ProductsView",
             expanded: false,
             subItems: ["Roadmap", "Feedback", "Performance", "Team", "Analytics"],
           },
@@ -138,10 +138,7 @@
     },
     methods: {
       toggleFolder(folder) {
-        console.log("folder", folder);
-        console.log("e", folder.expanded);
         folder.expanded = !folder.expanded;
-        console.log("e1", folder.expanded);
       },
       addSubItem(folder) {
         folder.subItems.push("New Sub-Item");

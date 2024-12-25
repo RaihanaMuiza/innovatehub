@@ -5,9 +5,14 @@
 </template>
 
 <script>
+import ProductsView from "@/views/Products.vue"; // Import the Products component
+
 export default {
   name: "Content-section",
-  props: ["currentView"],
+  props: ["currentView"], // Dynamically load content based on this prop
+  components: {
+    ProductsView, // Register the Products component for dynamic loading
+  },
 };
 </script>
 
