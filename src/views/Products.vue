@@ -60,12 +60,18 @@
           <td>
             <div class="members">
               <img
-                v-for="member in product.members"
-                :key="member.name"
-                src="member.avatar"
+                v-for="(member, index) in getVisibleMembers(product.members)"
+                :key="index"
+                :src="require(`@/assets/${member.avatar}`)"
                 :alt="member.name"
                 class="member-avatar"
               />
+              <span
+                v-if="getRemainingCount(product.members) > 0"
+                class="remaining-members"
+              >
+                +{{ getRemainingCount(product.members) }}
+              </span>
             </div>
           </td>
           <td>
@@ -121,8 +127,8 @@ export default {
           brand: "Wix",
           description: "Develop a personalized fitness program.",
           members: [
-            { name: "John Doe", avatar: "@/assets/user.jpg" },
-            { name: "Jane Smith", avatar: "path/to/avatar2.png" },
+            { name: "John Doe", avatar: "user.jpg" },
+            { name: "Jane Smith", avatar: "user4.jpg" },
           ],
           categories: ["Automation"],
           tags: ["#DigitalTransformation"],
@@ -132,7 +138,10 @@ export default {
           id: 2,
           brand: "Shopify",
           description: "Introduce a cloud-based retail solution.",
-          members: [{ name: "Alice", avatar: "path/to/avatar3.png" }],
+          members: [
+            { name: "Patty", avatar: "user7.jpg" },
+            { name: "Patty", avatar: "user3.jpg" },
+          ],
           categories: ["E-commerce", "B2B"],
           tags: ["#OnlineShopping", "#Digital"],
           nextMeeting: "Tomorrow",
@@ -143,11 +152,11 @@ export default {
           description:
             "Develop a mobile application to track the mails for your cutomers",
           members: [
-            { name: "Alice", avatar: "path/to/avatar3.png" },
-            { name: "Wane", avatar: "path/to/avatar3.png" },
-            { name: "July", avatar: "path/to/avatar3.png" },
-            { name: "Roselwe", avatar: "path/to/avatar3.png" },
-            { name: "Patty", avatar: "path/to/avatar3.png" },
+            { name: "Alice", avatar: "user2.jpg" },
+            { name: "Wane", avatar: "user4.jpg" },
+            { name: "July", avatar: "user6.jpg" },
+            { name: "Roselwe", avatar: "user8.jpg" },
+            { name: "Patty", avatar: "user7.jpg" },
           ],
           categories: ["SAAS", "Mobile"],
           tags: ["#TechInnovation", "#CloudComputing"],
@@ -157,7 +166,7 @@ export default {
           id: 5,
           brand: "PayPal",
           description: "This program could include financial services.",
-          members: [{ name: "Mane Fraser", avatar: "path/to/avatar3.png" }],
+          members: [{ name: "Mane Fraser", avatar: "user5.jpg" }],
           categories: ["Marketplace"],
           tags: ["#TechInnovation", "#CloudComputing"],
           nextMeeting: "In 6 hours",
@@ -167,9 +176,9 @@ export default {
           brand: "Disney",
           description: "Introduce a B2B Solution",
           members: [
-            { name: "Alice", avatar: "path/to/avatar3.png" },
-            { name: "Maryn", avatar: "path/to/avatar3.png" },
-            { name: "Tress", avatar: "path/to/avatar3.png" },
+            { name: "Alice", avatar: "user8.jpg" },
+            { name: "Maryn", avatar: "user3.jpg" },
+            { name: "Tress", avatar: "user7.jpg" },
           ],
           categories: ["SAAS", "Mobile"],
           tags: ["#TechInnovation", "#CloudComputing"],
@@ -180,10 +189,13 @@ export default {
           brand: "Intercom",
           description: "Implement an AI driven solution",
           members: [
-            { name: "Alice", avatar: "path/to/avatar3.png" },
-            { name: "Alice", avatar: "path/to/avatar3.png" },
-            { name: "Alice", avatar: "path/to/avatar3.png" },
-            { name: "Alice", avatar: "path/to/avatar3.png" },
+            { name: "Alice", avatar: "user4.jpg" },
+            { name: "Alice", avatar: "user3.jpg" },
+            { name: "Alice", avatar: "user6.jpg" },
+            { name: "Alice", avatar: "user.jpg" },
+            { name: "Patty", avatar: "user2.jpg" },
+            { name: "Patty", avatar: "user5.jpg" },
+            { name: "Patty", avatar: "user8.jpg" },
           ],
           categories: ["Finance", "Automation"],
           tags: ["#SmartFinance", "#Workflow"],
@@ -193,7 +205,11 @@ export default {
           id: 8,
           brand: "Google",
           description: "Offer a comprehensive solution",
-          members: [{ name: "Alice", avatar: "path/to/avatar3.png" }],
+          members: [
+            { name: "Alice", avatar: "user4.jpg" },
+            { name: "Alice", avatar: "user2.jpg" },
+            { name: "Alice", avatar: "user.jpg" },
+          ],
           categories: ["SAAS", "Mobile"],
           tags: ["#TechInnovation", "#CloudComputing"],
           nextMeeting: "In 30 minutes",
@@ -203,9 +219,9 @@ export default {
           brand: "Evernote",
           description: "The cloud include smart list",
           members: [
-            { name: "Alice", avatar: "path/to/avatar3.png" },
-            { name: "Raene", avatar: "path/to/avatar3.png" },
-            { name: "Oss", avatar: "path/to/avatar3.png" },
+            { name: "Alice", avatar: "user8.jpg" },
+            { name: "Raene", avatar: "user5.jpg" },
+            { name: "Oss", avatar: "user3.jpg" },
           ],
           categories: ["SAAS", "Mobile"],
           tags: ["#TechInnovation", "#CloudComputing"],
@@ -216,10 +232,12 @@ export default {
           brand: "Microsoft",
           description: "Launch advisory service",
           members: [
-            { name: "Alice", avatar: "path/to/avatar3.png" },
-            { name: "Wayne", avatar: "path/to/avatar3.png" },
-            { name: "Irend", avatar: "path/to/avatar3.png" },
-            { name: "Ugeane", avatar: "path/to/avatar3.png" },
+            { name: "Alice", avatar: "user2.jpg" },
+            { name: "Wayne", avatar: "user6.jpg" },
+            { name: "Irend", avatar: "user5.jpg" },
+            { name: "Ugeane", avatar: "user8.jpg" },
+            { name: "Ugeane", avatar: "user.jpg" },
+            { name: "Ugeane", avatar: "user4.jpg" },
           ],
           categories: ["Publishing", "B2B"],
           tags: ["#B2CMarketing", "#Retail"],
@@ -230,8 +248,8 @@ export default {
           brand: "Invision",
           description: "The tool would analyze the data",
           members: [
-            { name: "Alice", avatar: "path/to/avatar3.png" },
-            { name: "Alice", avatar: "path/to/avatar3.png" },
+            { name: "Alice", avatar: "user5.jpg" },
+            { name: "Alice", avatar: "user2.jpg" },
           ],
           categories: ["Publishing", "B2B"],
           tags: ["#B2CMarketing", "#Retail"],
@@ -239,7 +257,7 @@ export default {
         },
       ],
       filteredProducts: [],
-      categoryColors: { 
+      categoryColors: {
         SAAS: "#fdd835", // Yellow
         "Cloud Services": "#66bb6a", // Green
         Automation: "#42a5f5", // Blue
@@ -296,6 +314,12 @@ export default {
     },
     getCategoryColor(category) {
       return this.categoryColors[category] || "#e0e0e0"; // Default color for unknown categories
+    },
+    getVisibleMembers(members) {
+      return members.slice(0, 4); // Show the first 4 members
+    },
+    getRemainingCount(members) {
+      return members.length > 4 ? members.length - 4 : 0;
     },
   },
   mounted() {
@@ -378,8 +402,8 @@ export default {
 }
 
 .productd-table td {
-  text-align: center; 
-  vertical-align: middle; 
+  text-align: center;
+  vertical-align: middle;
   padding: 10px;
 }
 
@@ -564,5 +588,31 @@ export default {
 
 .scroll-visible::-webkit-scrollbar-thumb:hover {
   background-color: #888; /* Darker thumb on hover */
+}
+
+.members {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.member-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.remaining-members {
+  width: 30px;
+  height: 30px;
+  background-color: #e0e0e0;
+  color: #6c757d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 0.85rem;
+  font-weight: bold;
 }
 </style>
