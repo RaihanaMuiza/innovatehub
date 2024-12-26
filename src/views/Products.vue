@@ -33,7 +33,7 @@
     <table class="products-table">
       <thead>
         <tr>
-          <th><input type="checkbox" /></th>
+          <th><input type="checkbox" @change="selectAll($event)" /></th>
           <th class="brand-column">
             Brand
             <button class="add-icon">+</button>
@@ -49,7 +49,11 @@
       <tbody>
         <tr v-for="product in filteredProducts" :key="product.id">
           <td>
-            <input type="checkbox" />
+            <input
+              type="checkbox"
+              :checked="product.isSelected"
+              @change="toggleCheckbox(product)"
+            />
           </td>
           <td class="brand-column">{{ product.brand }}</td>
           <td>
@@ -131,6 +135,19 @@
         </tr>
       </tbody>
     </table>
+
+    <div class="products-footer">
+      <!-- Selected Badge -->
+      <div class="footer-item">
+        <span>Selected</span>
+        <span class="footer-badge">{{ selectedCount }}</span>
+      </div>
+
+      <!-- Other Non-functional Badges -->
+      <div class="footer-item archive">Archive</div>
+      <div class="footer-item delete">Delete</div>
+      <div class="footer-item more">More</div>
+    </div>
   </div>
 </template>
 
@@ -158,6 +175,7 @@ export default {
           categories: ["Automation"],
           tags: ["#DigitalTransformation"],
           nextMeeting: "in 30 minutes",
+          isSelected: false,
         },
         {
           id: 2,
@@ -170,6 +188,7 @@ export default {
           categories: ["E-commerce", "B2B"],
           tags: ["#OnlineShopping", "#Digital"],
           nextMeeting: "Tomorrow",
+          isSelected: false,
         },
         {
           id: 3,
@@ -186,6 +205,7 @@ export default {
           categories: ["SAAS", "Mobile"],
           tags: ["#TechInnovation", "#CloudComputing"],
           nextMeeting: "Tomorrow",
+          isSelected: false,
         },
         {
           id: 5,
@@ -195,6 +215,7 @@ export default {
           categories: ["Marketplace"],
           tags: ["#TechInnovation", "#CloudComputing"],
           nextMeeting: "In 6 hours",
+          isSelected: false,
         },
         {
           id: 6,
@@ -208,6 +229,7 @@ export default {
           categories: ["SAAS", "Mobile"],
           tags: ["#TechInnovation", "#CloudComputing"],
           nextMeeting: "No Contact",
+          isSelected: false,
         },
         {
           id: 7,
@@ -225,6 +247,7 @@ export default {
           categories: ["Finance", "Automation"],
           tags: ["#SmartFinance", "#Workflow"],
           nextMeeting: "In 1 hour",
+          isSelected: false,
         },
         {
           id: 8,
@@ -238,6 +261,7 @@ export default {
           categories: ["SAAS", "Mobile"],
           tags: ["#TechInnovation", "#CloudComputing"],
           nextMeeting: "In 30 minutes",
+          isSelected: false,
         },
         {
           id: 9,
@@ -251,6 +275,7 @@ export default {
           categories: ["SAAS", "Mobile"],
           tags: ["#TechInnovation", "#CloudComputing"],
           nextMeeting: "next Month",
+          isSelected: false,
         },
         {
           id: 10,
@@ -267,6 +292,7 @@ export default {
           categories: ["Publishing", "B2B"],
           tags: ["#B2CMarketing", "#Retail"],
           nextMeeting: "No contact",
+          isSelected: false,
         },
         {
           id: 11,
@@ -279,6 +305,7 @@ export default {
           categories: ["Publishing", "B2B"],
           tags: ["#B2CMarketing", "#Retail"],
           nextMeeting: "Next Month",
+          isSelected: false,
         },
       ],
       filteredProducts: [],
@@ -290,9 +317,10 @@ export default {
         B2B: "#ef5350", // Red
         Mobile: "#ec407a", // Pink
         Marketplace: "#26a69a", // Teal
-        Finance: "#ab47bc"
+        Finance: "#ab47bc",
       },
       showRemaining: false,
+      selectedCount: 0, // Tracks the number of selected checkboxes
     };
   },
   methods: {
@@ -352,6 +380,17 @@ export default {
     getRemainingMembers(members) {
       return members.slice(4); // Get the remaining members after the first 4
     },
+    toggleCheckbox(product) {
+      product.isSelected = !product.isSelected; // Toggle selection
+      this.selectedCount = this.products.filter((p) => p.isSelected).length;
+    },
+    selectAll(event) {
+      const isChecked = event.target.checked;
+      this.products.forEach((product) => {
+        product.isSelected = isChecked;
+      });
+      this.selectedCount = isChecked ? this.products.length : 0;
+    },
   },
   mounted() {
     this.checkScreenSize();
@@ -376,6 +415,10 @@ export default {
   max-height: 100vh; /* Ensure it doesn't exceed the viewport height */
   transition: all 0.3s ease;
   height: calc(100vh - 40px);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  min-height: 100vh;
 }
 
 .products-header {
@@ -514,7 +557,7 @@ export default {
   border-radius: 7.5px;
   cursor: pointer;
   font-size: 0.9rem;
-  font-weight: bold;
+  font-weight: 500;
 }
 
 /* Right badges */
@@ -531,7 +574,7 @@ export default {
   border-radius: 8px;
   cursor: pointer;
   font-size: 0.9rem;
-  font-weight: bold;
+  font-weight: 500;
 }
 
 .toolbar-badge:hover {
@@ -729,5 +772,69 @@ export default {
 
 .remaining-list li:hover {
   background-color: #f1f1f1;
+}
+
+/* Footer Card Styling */
+.products-footer {
+  display: flex;
+  justify-content: space-between; /* Space between items in the footer */
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #fff; /* White background */
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow effect */
+  width: fit-content; /* Adjust to content width */
+  position: absolute; /* Position relative to the viewport */
+  left: 50%; /* Center horizontally */
+  bottom: 20px; /* Add margin from the bottom */
+  transform: translateX(-50%); /* Adjust position to truly center */
+}
+
+/* Footer Button Common Styling */
+.footer-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  font-weight: bold;
+  padding: 5px 5px;
+  border-radius: 10px; /* Rounded button edges */
+  cursor: pointer;
+  border-color: #f1f1f1; /* Light grey background */
+  color: #333; /* Default dark text */
+  transition: all 0.3s ease;
+}
+
+/* Hover Effects */
+.footer-item:hover {
+  background-color: #ddd; /* Darker grey on hover */
+}
+
+/* Badge for Selected */
+.footer-badge {
+  margin-left: 5px;
+  padding: 5px 10px;
+  background-color: #000; /* Black background */
+  color: white; /* White text */
+  border-radius: 10px;
+  font-size: 0.85rem;
+}
+
+/* Delete Button */
+.footer-item.delete {
+  color: #721c24; /* Red text */
+
+}
+
+.footer-item.delete:hover {
+  background-color: #f5c6cb; /* Slightly darker red on hover */
+}
+
+/* Responsive Footer */
+@media (max-width: 768px) {
+  .products-footer {
+    flex-direction: column; /* Stack items vertically for smaller screens */
+    align-items: center;
+  }
 }
 </style>
