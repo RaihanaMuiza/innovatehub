@@ -37,15 +37,14 @@ export default {
   overflow: hidden; /* Prevent scrolling issues */
 }
 
-.navbar-container {
-  width: 20%; /* Navbar takes 20% of the screen width */
-  height: 100%; /* Full screen height */
-  overflow-y: auto; /* Enable scrolling for long content */
-}
+/* .navbar-container {
+  width: 20%; 
+  height: 100%; 
+  overflow-y: auto; 
+} */
 
 .content-container {
   flex-grow: 1; /* Content takes the remaining 80% of the width */
-  height: 100%; /* Full screen height */
-  overflow-y: auto; /* Enable scrolling for content */
+  height: 100%; 
 }
 </style>

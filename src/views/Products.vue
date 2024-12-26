@@ -63,7 +63,6 @@
           </td>
           <td>
             <div class="members">
-              <!-- Member Images with Tooltip -->
               <div
                 v-for="(member, index) in getVisibleMembers(product.members)"
                 :key="index"
@@ -77,7 +76,6 @@
                 <span class="tooltip">{{ member.name }}</span>
               </div>
 
-              <!-- Remaining Members (+X) -->
               <div
                 v-if="getRemainingCount(product.members) > 0"
                 class="remaining-members-container"
@@ -129,21 +127,17 @@
               {{ product.nextMeeting }}
             </span>
           </td>
-          <td>
-            <!-- <button class="add-button">+</button> -->
-          </td>
+          <td></td>
         </tr>
       </tbody>
     </table>
 
     <div class="products-footer">
-      <!-- Selected Badge -->
       <div class="footer-item">
         <span>Selected</span>
         <span class="footer-badge">{{ selectedCount }}</span>
       </div>
 
-      <!-- Other Non-functional Badges -->
       <div class="footer-item archive">Archive</div>
       <div class="footer-item delete">Delete</div>
       <div class="footer-item more">More</div>
@@ -345,7 +339,6 @@ export default {
       return text;
     },
     getMeetingBadgeClass(nextMeeting) {
-      // const today = new Date();
       const meetingText = nextMeeting.toLowerCase();
 
       if (
@@ -369,7 +362,7 @@ export default {
       this.isSmallScreen = window.innerWidth <= 768;
     },
     getCategoryColor(category) {
-      return this.categoryColors[category] || "#e0e0e0"; // Default color for unknown categories
+      return this.categoryColors[category] || "#e0e0e0";
     },
     getVisibleMembers(members) {
       return members.slice(0, 4); // Show the first 4 members
@@ -381,7 +374,7 @@ export default {
       return members.slice(4); // Get the remaining members after the first 4
     },
     toggleCheckbox(product) {
-      product.isSelected = !product.isSelected; // Toggle selection
+      product.isSelected = !product.isSelected;
       this.selectedCount = this.products.filter((p) => p.isSelected).length;
     },
     selectAll(event) {
@@ -396,7 +389,7 @@ export default {
     this.checkScreenSize();
     window.addEventListener("resize", this.checkScreenSize);
 
-    this.filteredProducts = this.products; // Initialize with all products
+    this.filteredProducts = this.products;
   },
   beforeUnmount() {
     window.removeEventListener("resize", this.checkScreenSize);
@@ -405,436 +398,5 @@ export default {
 </script>
 
 <style scoped>
-.products-section {
-  background-color: #fff;
-  border-radius: 15px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  margin: 10px;
-  overflow-y: auto; /* Enable vertical scrolling */
-  max-height: 100vh; /* Ensure it doesn't exceed the viewport height */
-  transition: all 0.3s ease;
-  height: calc(100vh - 40px);
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  min-height: 100vh;
-}
-
-.products-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.header-tools {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.icon-button {
-  width: 35px;
-  height: 35px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #f1f1f1;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: -15px;
-}
-
-.products-toolbar {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 15px;
-}
-
-.toolbar-button {
-  padding: 5px 10px;
-  background-color: #f1f1f1;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.toolbar-button:hover {
-  background-color: #39393a;
-  color: white;
-}
-
-.products-table {
-  width: 100%;
-  border-collapse: collapse;
-  text-align: left;
-  margin-top: 15px;
-  border-radius: 5px;
-  border: 1px solid #f3f2f2;
-}
-
-.products-table th,
-.products-table td {
-  padding: 5px;
-  border: 0.5px solid #f3f2f2;
-}
-
-.productd-table td {
-  text-align: center;
-  vertical-align: middle;
-  padding: 10px;
-}
-
-.brand-column {
-  width: 17.5%;
-  position: relative;
-}
-
-.add-button {
-  background-color: #f1f1f1;
-  border: none;
-  padding: 5px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.add-icon {
-  float: right; /* Align the + icon to the right */
-  background: none;
-  border: none;
-  color: #39393a;
-  cursor: pointer;
-}
-
-.add-icon:hover {
-  color: #39393a;
-}
-
-.members {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  position: relative;
-}
-
-.member-avatar {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  position: relative;
-  cursor: pointer;
-}
-
-.category-badge,
-.tag-badge {
-  display: inline-block;
-  background-color: #f0f0f0;
-  color: #333;
-  padding: 5px 10px;
-  border-radius: 10px;
-  font-size: 0.8rem;
-  margin: 2px;
-}
-
-.products-toolbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px;
-}
-
-/* Left buttons */
-.toolbar-left {
-  display: flex;
-  gap: 10px;
-}
-
-.toolbar-button {
-  padding: 5px 10px;
-  background-color: #f1f1f1;
-  border: 1px solid #ddd;
-  border-radius: 7.5px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  font-weight: 500;
-}
-
-/* Right badges */
-.toolbar-right {
-  display: flex;
-  gap: 10px;
-}
-
-.toolbar-badge {
-  padding: 5px 15px;
-  background-color: #f1f1f1;
-  color: black;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  font-weight: 500;
-}
-
-.toolbar-badge:hover {
-  background-color: #39393a;
-  color: white;
-}
-
-/* Description Column */
-.description-column {
-  width: 30%; /* Fixed width for description */
-  white-space: nowrap; /* Prevent text wrapping */
-  overflow: hidden;
-  text-overflow: ellipsis; /* Display ellipsis for overflow text */
-}
-
-.description-text {
-  display: inline-block;
-  max-width: 100%; /* Ensure truncation works */
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  cursor: pointer; /* Indicate hover for tooltip */
-}
-
-/* .description-text:hover {
-  text-decoration: underline;
-} */
-
-.description-text::after {
-  content: attr(title); /* Tooltip text from title attribute */
-  position: absolute;
-  background: rgba(0, 0, 0, 0.7);
-  color: #fff;
-  padding: 5px;
-  border-radius: 5px;
-  white-space: normal; /* Allow wrapping in tooltip */
-  display: none;
-}
-
-.description-text:hover::after {
-  display: block; /* Show tooltip on hover */
-  top: 100%;
-  left: 0;
-  z-index: 10;
-}
-/* Badge Styling */
-.meeting-badge {
-  display: inline-block;
-  padding: 5px 10px;
-  text-align: center;
-  border-radius: 10px;
-  font-size: 0.8rem;
-  margin-left: 4px;
-  margin-top: 4px;
-  font-weight: 500;
-}
-
-/* Green Badge (Today) */
-.badge-green {
-  background-color: #d4edda; /* Light green */
-  color: #155724; /* Darker green */
-}
-
-/* Blue Badge (Tomorrow) */
-.badge-blue {
-  background-color: #cce5ff; /* Light blue */
-  color: #004085; /* Darker blue */
-}
-
-/* Red Badge (No Contact) */
-.badge-red {
-  background-color: #f8d7da; /* Light red */
-  color: #721c24; /* Darker red */
-}
-
-/* Grey Badge (Next Month / Others) */
-.badge-grey {
-  background-color: #e2e3e5; /* Light grey */
-  color: #6c757d; /* Darker grey */
-}
-
-.scroll-visible {
-  overflow-y: scroll; /* Enable scroll when necessary */
-  scrollbar-width: thin; /* Thin scrollbar for modern browsers */
-}
-
-.scroll-visible::-webkit-scrollbar {
-  width: 8px; /* Adjust scrollbar width */
-}
-
-.scroll-visible::-webkit-scrollbar-thumb {
-  background-color: #aaa; /* Scrollbar thumb color */
-  border-radius: 10px; /* Rounded scrollbar */
-}
-
-.scroll-visible::-webkit-scrollbar-thumb:hover {
-  background-color: #888; /* Darker thumb on hover */
-}
-
-.members {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.member-avatar {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.remaining-members {
-  width: 30px;
-  height: 30px;
-  background-color: #e0e0e0;
-  color: #6c757d;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  font-size: 0.85rem;
-  font-weight: bold;
-}
-
-.tooltip {
-  visibility: hidden;
-  opacity: 0;
-  background-color: #333;
-  color: #fff;
-  text-align: center;
-  padding: 5px;
-  border-radius: 5px;
-  font-size: 0.8rem;
-  position: absolute;
-  bottom: 35px;
-  left: 50%;
-  transform: translateX(-50%);
-  white-space: nowrap;
-  z-index: 10;
-  transition: opacity 0.3s, visibility 0.3s;
-}
-
-.member-container:hover .tooltip {
-  visibility: visible;
-  opacity: 1;
-}
-
-/* Remaining Members (+X) */
-.remaining-members-container {
-  position: relative;
-}
-
-.remaining-members {
-  display: inline-block;
-  width: 30px;
-  height: 30px;
-  background-color: #e0e0e0; /* Light grey */
-  color: #6c757d; /* Dark grey */
-  text-align: center;
-  line-height: 30px;
-  border-radius: 50%;
-  font-size: 0.85rem;
-  font-weight: bold;
-  cursor: pointer;
-  position: relative;
-}
-
-/* Dropdown List for Remaining Members */
-.remaining-list {
-  display: none;
-  position: absolute;
-  top: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: white;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  padding: 10px;
-  list-style: none;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  z-index: 10;
-  width: max-content;
-}
-
-.remaining-members-container:hover .remaining-list {
-  display: block;
-}
-
-.remaining-list li {
-  padding: 5px 10px;
-  font-size: 0.85rem;
-  cursor: pointer;
-}
-
-.remaining-list li:hover {
-  background-color: #f1f1f1;
-}
-
-/* Footer Card Styling */
-.products-footer {
-  display: flex;
-  justify-content: space-between; /* Space between items in the footer */
-  align-items: center;
-  padding: 10px 20px;
-  background-color: #fff; /* White background */
-  border-radius: 15px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow effect */
-  width: fit-content; /* Adjust to content width */
-  position: absolute; /* Position relative to the viewport */
-  left: 50%; /* Center horizontally */
-  bottom: 20px; /* Add margin from the bottom */
-  transform: translateX(-50%); /* Adjust position to truly center */
-}
-
-/* Footer Button Common Styling */
-.footer-item {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.9rem;
-  font-weight: bold;
-  padding: 5px 5px;
-  border-radius: 10px; /* Rounded button edges */
-  cursor: pointer;
-  border-color: #f1f1f1; /* Light grey background */
-  color: #333; /* Default dark text */
-  transition: all 0.3s ease;
-}
-
-/* Hover Effects */
-.footer-item:hover {
-  background-color: #ddd; /* Darker grey on hover */
-}
-
-/* Badge for Selected */
-.footer-badge {
-  margin-left: 5px;
-  padding: 5px 10px;
-  background-color: #000; /* Black background */
-  color: white; /* White text */
-  border-radius: 10px;
-  font-size: 0.85rem;
-}
-
-/* Delete Button */
-.footer-item.delete {
-  color: #721c24; /* Red text */
-
-}
-
-.footer-item.delete:hover {
-  background-color: #f5c6cb; /* Slightly darker red on hover */
-}
-
-/* Responsive Footer */
-@media (max-width: 768px) {
-  .products-footer {
-    flex-direction: column; /* Stack items vertically for smaller screens */
-    align-items: center;
-  }
-}
+@import "@/styles/products.css";
 </style>

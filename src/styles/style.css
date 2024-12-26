@@ -2,8 +2,7 @@
 .sidebar {
     display: flex;
     flex-direction: column;
-    /* width:  0%; */
-    height: calc(100vh - 20px); /* Full height with a small margin */
+    height: calc(100vh - 20px); 
     margin: 10px;
     border-radius: 15px;
     background-color: #f8f9fa; /* Light grey */
@@ -48,7 +47,7 @@
     align-items: center;
     justify-content: space-between;
     justify-content: flex-start; /* Align all content to the left */
-    gap: 10px;/* Add space between elements */
+    gap: 10px;
   }
   
   .menu-icon {
@@ -59,9 +58,9 @@
   }
 
   .menu-text {
-    flex-grow: 1; /* Allow the text to take the remaining horizontal space */
-    text-align: left; /* Explicitly align text to the left */
-    margin-left: 10px; /* Optional: Add space between the logo and text */
+    flex-grow: 1; 
+    text-align: left; 
+    margin-left: 10px; 
 }
   
   .badge {
@@ -99,7 +98,7 @@
 /* Divider Styling */
 .divider {
     border: none;
-    border-top: 1px solid #ddd; /* Same color as navbar border */
+    border-top: 1px solid #ddd; 
     margin: 5px 0;
 }
 
@@ -110,7 +109,7 @@
 }
 
 .menu-group {
-    border: 1px solid #ddd; /* Same color as navbar border */
+    border: 1px solid #ddd; 
     border-radius: 10px; /* Rounded corners */
     padding: 10px;
     margin-top: 10px;
@@ -148,7 +147,7 @@
 }
 
 .folder-item .menu-text {
-    flex-grow: 1; /* Push caret icon to the right */
+    flex-grow: 1; 
     text-align: left;
 }
 
@@ -162,7 +161,7 @@
     margin-left: 25px; /* Indent for sub-items */
     list-style: none;
     border-left: 1px solid #ddd; /* Vertical line */
-    padding-left: 10px; /* Add margin after vertical line */
+    padding-left: 10px; 
 }
 
 .sub-item {
@@ -230,12 +229,12 @@
 
 .products-section {
     flex-grow: 1; /* Makes it take up all available space next to the navbar */
-    background-color: #fff; /* Your desired background color */
-    border-radius: 15px; /* Optional: Matches the navbar */
+    background-color: #fff; 
+    border-radius: 15px; 
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional */
     padding: 20px; /* Space inside the content section */
     margin: 10px;
-    overflow-y: auto; /* Scroll content if it exceeds the height */
+    overflow-y: auto; 
     min-height: calc(100vh - 20px); /* Ensure it fills the remaining screen space */
     width: calc(100vw - 20vw);
 }
