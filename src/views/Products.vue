@@ -1,5 +1,5 @@
 <template>
-  <div class="products-section">
+  <div :class="['products-section', { 'scroll-visible': isSmallScreen }]">
     <!-- Page Header -->
     <div class="products-header">
       <h2>Products</h2>
@@ -73,6 +73,10 @@
               v-for="category in product.categories"
               :key="category"
               class="category-badge"
+              :style="{
+                backgroundColor: getCategoryColor(category),
+                color: 'white',
+              }"
             >
               {{ category }}
             </span>
@@ -83,12 +87,12 @@
             </span>
           </td>
           <td>
-          <span
-            class="meeting-badge"
-            :class="getMeetingBadgeClass(product.nextMeeting)"
-          >
-            {{ product.nextMeeting }}
-          </span>
+            <span
+              class="meeting-badge"
+              :class="getMeetingBadgeClass(product.nextMeeting)"
+            >
+              {{ product.nextMeeting }}
+            </span>
           </td>
           <td>
             <!-- <button class="add-button">+</button> -->
@@ -110,6 +114,7 @@ export default {
   data() {
     return {
       searchQuery: "",
+      isSmallScreen: false,
       products: [
         {
           id: 1,
@@ -234,6 +239,14 @@ export default {
         },
       ],
       filteredProducts: [],
+      categoryColors: { 
+        SAAS: "#fdd835", // Yellow
+        "Cloud Services": "#66bb6a", // Green
+        Automation: "#42a5f5", // Blue
+        ECommerce: "#ab47bc", // Purple
+        B2B: "#ef5350", // Red
+        Mobile: "#ec407a", // Pink
+      },
     };
   },
   methods: {
@@ -264,7 +277,8 @@ export default {
       if (
         meetingText.includes("today") ||
         meetingText.includes("minutes") ||
-        meetingText.includes("hours")
+        meetingText.includes("hours") ||
+        meetingText.includes("hour")
       ) {
         return "badge-green";
       } else if (meetingText.includes("tomorrow")) {
@@ -274,12 +288,24 @@ export default {
       } else if (meetingText.includes("next month")) {
         return "badge-grey";
       } else {
-        return "badge-grey"; // Default to grey if unknown
+        return "badge-grey";
       }
+    },
+    checkScreenSize() {
+      this.isSmallScreen = window.innerWidth <= 768;
+    },
+    getCategoryColor(category) {
+      return this.categoryColors[category] || "#e0e0e0"; // Default color for unknown categories
     },
   },
   mounted() {
+    this.checkScreenSize();
+    window.addEventListener("resize", this.checkScreenSize);
+
     this.filteredProducts = this.products; // Initialize with all products
+  },
+  beforeUnmount() {
+    window.removeEventListener("resize", this.checkScreenSize);
   },
 };
 </script>
@@ -291,7 +317,9 @@ export default {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 20px;
   margin: 10px;
-  overflow-y: hidden;
+  overflow-y: auto; /* Enable vertical scrolling */
+  max-height: 100vh; /* Ensure it doesn't exceed the viewport height */
+  transition: all 0.3s ease;
   height: calc(100vh - 40px);
 }
 
@@ -349,9 +377,9 @@ export default {
   border: 0.5px solid #f3f2f2;
 }
 
-.productd-table td{
-  text-align: center; /* Center horizontally */
-  vertical-align: middle; /* Center vertically */
+.productd-table td {
+  text-align: center; 
+  vertical-align: middle; 
   padding: 10px;
 }
 
@@ -518,5 +546,23 @@ export default {
 .badge-grey {
   background-color: #e2e3e5; /* Light grey */
   color: #6c757d; /* Darker grey */
+}
+
+.scroll-visible {
+  overflow-y: scroll; /* Enable scroll when necessary */
+  scrollbar-width: thin; /* Thin scrollbar for modern browsers */
+}
+
+.scroll-visible::-webkit-scrollbar {
+  width: 8px; /* Adjust scrollbar width */
+}
+
+.scroll-visible::-webkit-scrollbar-thumb {
+  background-color: #aaa; /* Scrollbar thumb color */
+  border-radius: 10px; /* Rounded scrollbar */
+}
+
+.scroll-visible::-webkit-scrollbar-thumb:hover {
+  background-color: #888; /* Darker thumb on hover */
 }
 </style>
