@@ -1,5 +1,6 @@
 <template>
-  <div :class="['products-section', { 'scroll-visible': isSmallScreen }]">
+  <!-- <div :class="['products-section', { 'scroll-visible': isSmallScreen }]"> -->
+    <div class="products-section">
     <!-- Page Header -->
     <div class="products-header">
       <h2>Products</h2>
