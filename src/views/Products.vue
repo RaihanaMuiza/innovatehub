@@ -59,21 +59,46 @@
           </td>
           <td>
             <div class="members">
-              <img
+              <!-- Member Images with Tooltip -->
+              <div
                 v-for="(member, index) in getVisibleMembers(product.members)"
                 :key="index"
-                :src="require(`@/assets/${member.avatar}`)"
-                :alt="member.name"
-                class="member-avatar"
-              />
-              <span
-                v-if="getRemainingCount(product.members) > 0"
-                class="remaining-members"
+                class="member-container"
               >
-                +{{ getRemainingCount(product.members) }}
-              </span>
+                <img
+                  :src="require(`@/assets/${member.avatar}`)"
+                  :alt="member.name"
+                  class="member-avatar"
+                />
+                <span class="tooltip">{{ member.name }}</span>
+              </div>
+
+              <!-- Remaining Members (+X) -->
+              <div
+                v-if="getRemainingCount(product.members) > 0"
+                class="remaining-members-container"
+              >
+                <span
+                  class="remaining-members"
+                  @mouseenter="showRemaining = true"
+                  @mouseleave="showRemaining = false"
+                >
+                  +{{ getRemainingCount(product.members) }}
+                </span>
+                <ul v-if="showRemaining" class="remaining-list">
+                  <li
+                    v-for="(member, index) in getRemainingMembers(
+                      product.members
+                    )"
+                    :key="index"
+                  >
+                    {{ member.name }}
+                  </li>
+                </ul>
+              </div>
             </div>
           </td>
+
           <td>
             <span
               v-for="category in product.categories"
@@ -190,12 +215,12 @@ export default {
           description: "Implement an AI driven solution",
           members: [
             { name: "Alice", avatar: "user4.jpg" },
-            { name: "Alice", avatar: "user3.jpg" },
-            { name: "Alice", avatar: "user6.jpg" },
-            { name: "Alice", avatar: "user.jpg" },
+            { name: "Ewan", avatar: "user3.jpg" },
+            { name: "Teen", avatar: "user6.jpg" },
+            { name: "Henry", avatar: "user.jpg" },
             { name: "Patty", avatar: "user2.jpg" },
-            { name: "Patty", avatar: "user5.jpg" },
-            { name: "Patty", avatar: "user8.jpg" },
+            { name: "Wayne", avatar: "user5.jpg" },
+            { name: "Liza", avatar: "user8.jpg" },
           ],
           categories: ["Finance", "Automation"],
           tags: ["#SmartFinance", "#Workflow"],
@@ -206,9 +231,9 @@ export default {
           brand: "Google",
           description: "Offer a comprehensive solution",
           members: [
-            { name: "Alice", avatar: "user4.jpg" },
+            { name: "Henry", avatar: "user4.jpg" },
             { name: "Alice", avatar: "user2.jpg" },
-            { name: "Alice", avatar: "user.jpg" },
+            { name: "Jayne", avatar: "user.jpg" },
           ],
           categories: ["SAAS", "Mobile"],
           tags: ["#TechInnovation", "#CloudComputing"],
@@ -235,9 +260,9 @@ export default {
             { name: "Alice", avatar: "user2.jpg" },
             { name: "Wayne", avatar: "user6.jpg" },
             { name: "Irend", avatar: "user5.jpg" },
-            { name: "Ugeane", avatar: "user8.jpg" },
+            { name: "Neen", avatar: "user8.jpg" },
             { name: "Ugeane", avatar: "user.jpg" },
-            { name: "Ugeane", avatar: "user4.jpg" },
+            { name: "Keller", avatar: "user4.jpg" },
           ],
           categories: ["Publishing", "B2B"],
           tags: ["#B2CMarketing", "#Retail"],
@@ -249,7 +274,7 @@ export default {
           description: "The tool would analyze the data",
           members: [
             { name: "Alice", avatar: "user5.jpg" },
-            { name: "Alice", avatar: "user2.jpg" },
+            { name: "Jerry", avatar: "user2.jpg" },
           ],
           categories: ["Publishing", "B2B"],
           tags: ["#B2CMarketing", "#Retail"],
@@ -259,12 +284,15 @@ export default {
       filteredProducts: [],
       categoryColors: {
         SAAS: "#fdd835", // Yellow
-        "Cloud Services": "#66bb6a", // Green
+        Publishing: "#66bb6a", // Green
         Automation: "#42a5f5", // Blue
         ECommerce: "#ab47bc", // Purple
         B2B: "#ef5350", // Red
         Mobile: "#ec407a", // Pink
+        Marketplace: "#26a69a", // Teal
+        Finance: "#ab47bc"
       },
+      showRemaining: false,
     };
   },
   methods: {
@@ -320,6 +348,9 @@ export default {
     },
     getRemainingCount(members) {
       return members.length > 4 ? members.length - 4 : 0;
+    },
+    getRemainingMembers(members) {
+      return members.slice(4); // Get the remaining members after the first 4
     },
   },
   mounted() {
@@ -386,6 +417,11 @@ export default {
   cursor: pointer;
 }
 
+.toolbar-button:hover {
+  background-color: #39393a;
+  color: white;
+}
+
 .products-table {
   width: 100%;
   border-collapse: collapse;
@@ -424,23 +460,27 @@ export default {
   float: right; /* Align the + icon to the right */
   background: none;
   border: none;
-  color: #007bff;
+  color: #39393a;
   cursor: pointer;
 }
 
 .add-icon:hover {
-  color: #0056b3;
+  color: #39393a;
 }
 
 .members {
   display: flex;
+  align-items: center;
+  gap: 5px;
+  position: relative;
 }
 
 .member-avatar {
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  margin-right: 5px;
+  position: relative;
+  cursor: pointer;
 }
 
 .category-badge,
@@ -495,7 +535,8 @@ export default {
 }
 
 .toolbar-badge:hover {
-  background-color: #0056b3;
+  background-color: #39393a;
+  color: white;
 }
 
 /* Description Column */
@@ -614,5 +655,79 @@ export default {
   border-radius: 50%;
   font-size: 0.85rem;
   font-weight: bold;
+}
+
+.tooltip {
+  visibility: hidden;
+  opacity: 0;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  position: absolute;
+  bottom: 35px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  z-index: 10;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+
+.member-container:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Remaining Members (+X) */
+.remaining-members-container {
+  position: relative;
+}
+
+.remaining-members {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background-color: #e0e0e0; /* Light grey */
+  color: #6c757d; /* Dark grey */
+  text-align: center;
+  line-height: 30px;
+  border-radius: 50%;
+  font-size: 0.85rem;
+  font-weight: bold;
+  cursor: pointer;
+  position: relative;
+}
+
+/* Dropdown List for Remaining Members */
+.remaining-list {
+  display: none;
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  list-style: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  width: max-content;
+}
+
+.remaining-members-container:hover .remaining-list {
+  display: block;
+}
+
+.remaining-list li {
+  padding: 5px 10px;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.remaining-list li:hover {
+  background-color: #f1f1f1;
 }
 </style>
